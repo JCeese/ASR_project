@@ -10,7 +10,7 @@ from urllib.request import Request
 from urllib.error import URLError
 from urllib.parse import urlencode
 timer = time.perf_counter
-import zhconv
+import zhconv                       # 如果要转换成繁体，需要pip install zhconv
 import sys
 import os
 
@@ -152,22 +152,22 @@ for i in range(0,len(list)):
           result_str = err.read()
       data1 = json.loads(result_str.decode('utf-8'))
 
+      transcript_iflytek = Iflytek(path)
       result_Google = google(path)
       transcript_Baidu = data1['result'][0]
       transformation_Baidu = zhconv.convert(transcript_Baidu, 'zh-hk')
+      print(transcript_iflytek)      # 讯飞免费账户暂不支持粤语识别，所以这里是普通话识别结果
       print(result_Google)
       print(transcript_Baidu)
       print(transformation_Baidu)
-      # f = open(str(i)+"_google.txt",'w')
-      # f.write(result_Google)
-      # f.close
-      # b = open(str(i) + "_Baidu.txt", 'w')
-      # b.write(transcript_Baidu)
-      # f.close
+      I = open(str(i)+"_iflytek.txt",'w')
+      I.write(transcript_iflytek)
+      f = open(str(i)+"_google.txt",'w')
+      f.write(result_Google)
+      f.close
+      b = open(str(i) + "_Baidu.txt", 'w')
+      b.write(transcript_Baidu)
+      f.close
       i= i+1
 
-      # transcript_iflytek = Iflytek(path)
-      # print(transcript_iflytek)
-      # I = open(str(i)+"_iflytek.txt",'w')
-      # # I.write(transcript_iflytek)
-      # I.close
+   
